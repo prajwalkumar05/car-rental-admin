@@ -24,7 +24,7 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", to: "/" },
   { name: "Add Cars",to:"addcars" },
-  { name: "Register",to:"" },
+  { name: "Register",to:"/register" },
   { name: "Contact",to:"contact" },
   { name: "Test",to:"test" }
 ];

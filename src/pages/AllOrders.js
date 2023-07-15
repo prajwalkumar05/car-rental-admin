@@ -29,7 +29,7 @@ function AllOrders() {
                 </div>
                 {
                     document.map((item,i) =>{
-                        return <OrderList item={item} />
+                        return <OrderList key={i} item={item} />
                     })
                 }
                 

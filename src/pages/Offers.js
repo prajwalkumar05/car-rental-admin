@@ -20,7 +20,7 @@ const AddCars = () => {
   const [description, setDescription] = useState("");
   const[carImage,setCarImage]=useState(null)
 
-  const newCityRef = doc(collection(db, "cars"));
+  const newCityRef = doc(collection(db, "offers"));
   
   console.log(uuid())
 

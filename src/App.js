@@ -12,6 +12,8 @@ import AllOrders from './pages/AllOrders';
 import Test from './pages/Test';
 import Contact from './pages/Contact';
 import Register from './pages/Register';
+import Offers from './pages/Offers';
+import RegisterDetails from './components/RegisterDetails';
 
 // router and routes
 const router = createBrowserRouter(
@@ -22,6 +24,8 @@ const router = createBrowserRouter(
       <Route path='/test' element={<Test /> }  />
       <Route path='/contact' element={<Contact /> }  />
       <Route path='/register' element={<Register /> }  />
+      <Route path='/offers' element={<Offers /> }  />
+      <Route path="/register/:slug" element={<RegisterDetails />} />
     </Route>
   )
 )
