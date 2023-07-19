@@ -25,4 +25,4 @@ const storage = getStorage(app)
 
 
 const db = getFirestore()
-export {db,auth,storage}
+export {app,db,auth,storage}

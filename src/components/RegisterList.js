@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const RegisterList = ({ item }) => {
-  const { profileFile, fname, lname, age, address,id } = item;
+  const { profileFile, fname, lname, age, address,id,register } = item;
   return (
     <Link to={`/register/${id}`}>
-    <div className="bg-white px-4 md:px-10 mb-6">
+    {!register && <div className="bg-white px-4 md:px-10 mb-6">
       <div className="overflow-x-auto">
         <table className="w-full whitespace-nowrap">
           <tbody>
@@ -36,7 +36,7 @@ const RegisterList = ({ item }) => {
           </tbody>
         </table>
       </div>
-    </div>
+    </div>}
     </Link>
   );
 };

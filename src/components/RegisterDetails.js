@@ -15,19 +15,62 @@ import { Box } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Center, Square, Circle } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { registerVersion } from "firebase/app";
 import useGetData from "../hooks/useGetData";
+import { useFirestore } from "../hooks/useFirestore";
+import { Timestamp, addDoc, collection, doc, updateDoc } from "firebase/firestore"
+import { db } from "../firebase/config";
 
 export default function RegisterDetails() {
   const { slug } = useParams();
-  console.log("hello");
+  
+
+  const navigate = useNavigate()
+  
+
+  
 
   const { result } = useGetData("verification", slug);
+  console.log(result)
 
   if (!result) {
     return <p>Loading</p>;
   }
+
+  const noteRef = doc(db, "verification", result.uid);
+
+
+  const acceptHandler = async () =>{
+    console.log("hello")
+
+    
+    await updateDoc(noteRef, {
+      ...result,register:true
+    });
+
+    navigate("/")
+  
+
+    
+  }
+
+  const rejectHandler = async () =>{
+    console.log("hello")
+
+    
+    await updateDoc(noteRef, {
+      ...result,register:false
+    });
+
+    navigate("/")
+  
+
+    
+  }
+
+
+  
 
   return (
     <Box
@@ -49,21 +92,21 @@ export default function RegisterDetails() {
           <Thead>
             <Tr>
               <Th>First Name</Th>
-              <Th>{result.fname}</Th>
+              <Th>{result && result.fname}</Th>
             </Tr>
           </Thead>
           <Tbody>
             <Tr>
               <Th>Last Name</Th>
-              <Th>{result.lname}</Th>
+              <Th>{result && result.lname}</Th>
             </Tr>
             <Tr>
               <Th>Date Of Birth</Th>
-              <Th>{result.age}</Th>
+              <Th>{result && result.age}</Th>
             </Tr>
             <Tr>
               <Th>Address</Th>
-              <Th>{result.address}</Th>
+              <Th>{result && result.address}</Th>
             </Tr>
           </Tbody>
           <Tfoot>
@@ -76,19 +119,19 @@ export default function RegisterDetails() {
         <Box style={{ display: "flex" }}>
           <Box style={{ margin: "40px" }} boxSize="sm">
             <h3> Profile </h3>
-            <Image className="h-50vh" src={result.LicenseFile} alt="Dan Abramov" />
+            <Image className="h-50vh" src={result && result.LicenseFile} alt="Dan Abramov" />
           </Box>
           <Box style={{ margin: "40px" }} boxSize="sm">
             <h3> Profile </h3>
-            <Image src={result.profileFile} alt="Dan Abramov" />
+            <Image src={result && result.profileFile} alt="Dan Abramov" />
           </Box>
         </Box>
 
        
       </TableContainer>
       <Center style={{paddingTop:"60px", display: "flex", gap: "15px" }} color="white">
-          <Button colorScheme="blue">Accept</Button>
-          <Button colorScheme="red">Reject</Button>
+          <Button onClick={acceptHandler} colorScheme="blue">Accept</Button>
+          <Button onClick={rejectHandler} colorScheme="red">Reject</Button>
         </Center>
     </Box>
   );
